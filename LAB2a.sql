@@ -46,10 +46,37 @@ select min(sal) from emp where job = 'MANAGER'
 --15
 select count(empno) from emp left join dept on dept.deptno = emp.deptno where dept.dname = 'ACCOUNTING' 
 --16
-select * from emp
---TODO
+select EMPNO as ID, Hiredate from emp;
+
+select extract(Year from hiredate) as rok, extract(month from hiredate) as miesiac, count(*) liczba_pracownikow from emp
+group by extract(Year from hiredate), extract(month from hiredate)
+order by rok, miesiac;
+
+select extract(Year from hiredate) as rok, extract(month from hiredate) as miesiac, count(*) liczba_pracownikow from emp
+group by rollup(extract(Year from hiredate), extract(month from hiredate))
+order by rok, miesiac;
+
+select extract(Year from hiredate) as rok, extract(month from hiredate) as miesiac, count(*) liczba_pracownikow from emp
+group by cube(extract(Year from hiredate), extract(month from hiredate))
+order by rok, miesiac;
 --17
---TODO
+select 
+    extract(year from hiredate) as rok,
+    count(decode(extract(month from hiredate), 1, 1))  as styczen,
+    count(decode(extract(month from hiredate), 2, 1))  as luty,
+    count(decode(extract(month from hiredate), 3, 1))  as marzec,
+    count(decode(extract(month from hiredate), 4, 1))  as kwiecien,
+    count(decode(extract(month from hiredate), 5, 1))  as maj,
+    count(decode(extract(month from hiredate), 6, 1))  as czerwiec,
+    count(decode(extract(month from hiredate), 7, 1))  as lipiec,
+    count(decode(extract(month from hiredate), 8, 1))  as sierpien,
+    count(decode(extract(month from hiredate), 9, 1))  as wrzesien,
+    count(decode(extract(month from hiredate), 10, 1)) as pazdziernik,
+    count(decode(extract(month from hiredate), 11, 1)) as listopad,
+    count(decode(extract(month from hiredate), 12, 1)) as grudzien
+from emp
+group by extract(year from hiredate)
+order by rok;
 --18
 select t.nazwa, avg(t.sallary) from (
 select dept.dname as nazwa, emp.sal as sallary from emp natural join dept 
