@@ -1,0 +1,82 @@
+set serveroutput ON
+
+
+declare 
+    counter number := 2;
+    number_check number;
+    czy_pierwsza number := 0;
+
+begin 
+    number_check := 29;
+    while counter < number_check
+    loop
+        if mod(number_check, counter) = 0 then
+            czy_pierwsza := 1;
+            counter := number_check;
+        end if;
+        counter := counter + 1;
+    end loop;
+    if czy_pierwsza = 0 then
+        dbms_output.put_line('Pierwsza ' || number_check);
+    else 
+        dbms_output.put_line('Nie pierwsza ' || number_check);
+    end if;
+end;
+
+
+declare
+
+    napis varchar2(20);
+    dlugosc number;
+    znak number;
+    jest number:=0;
+begin
+    napis := 'Ala ma koty';
+    dlugosc := length(napis);
+    for i in 1..dlugosc loop
+        znak := ASCII(substr(napis,i,1));
+        if znak >= 48 and znak <= 57 then
+            jest := 1;
+        end if;
+    end loop;
+    if jest = 1 then
+        dbms_output.put_line('Jest cyfra: '||napis);
+    else
+        dbms_output.put_line('Nie ma cyfry: '||napis);
+    end if;
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
